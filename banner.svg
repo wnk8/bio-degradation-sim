@@ -1,0 +1,125 @@
+<svg width="1200" height="280" viewBox="0 0 1200 280" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <marker id="arr" markerWidth="6" markerHeight="5" refX="6" refY="2.5" orient="auto">
+      <polygon points="0 0, 6 2.5, 0 5" fill="#A8A09A"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="280" fill="#F5F2EB"/>
+
+  <!-- Faint decorative hexagon (background structure) -->
+  <polygon points="970,145 910,248.9 790,248.9 730,145 790,41.1 910,41.1"
+           fill="none" stroke="#E8E4DB" stroke-width="0.8"/>
+
+  <!-- Left accent bar -->
+  <rect x="50" y="68" width="1.5" height="150" fill="#C8C0AE" rx="0.5"/>
+
+  <!-- ── TYPOGRAPHY ── -->
+
+  <text x="72" y="152"
+        font-family="'Helvetica Neue',Helvetica,Arial,sans-serif"
+        font-size="88" font-weight="300" letter-spacing="10" fill="#1C1C1C">PET</text>
+
+  <text x="73" y="188"
+        font-family="'Helvetica Neue',Helvetica,Arial,sans-serif"
+        font-size="25" font-weight="400" letter-spacing="5" fill="#3A3530">Biodegradation</text>
+
+  <text x="73" y="217"
+        font-family="'Helvetica Neue',Helvetica,Arial,sans-serif"
+        font-size="25" font-weight="300" letter-spacing="5" fill="#5B7E6B">Simulator</text>
+
+  <text x="73" y="252"
+        font-family="'Helvetica Neue',Helvetica,Arial,sans-serif"
+        font-size="9" font-weight="400" letter-spacing="3.5" fill="#B5ADA3">PETASE · MHETASE · MICHAELIS-MENTEN · MONTE-CARLO · ARRHENIUS</text>
+
+  <!-- Divider -->
+  <line x1="500" y1="62" x2="500" y2="218" stroke="#D8D2C4" stroke-width="0.7"/>
+
+  <!-- ── MOLECULAR PATHWAY ── -->
+
+  <!-- PET: dashed chain stub (polymer continuation) -->
+  <line x1="638" y1="145" x2="518" y2="145"
+        stroke="#C8C0AE" stroke-width="1.1" stroke-dasharray="5,3"/>
+
+  <!-- PET hexagon — flat-side, center (670,145), r=32 -->
+  <polygon points="702,145 686,172.7 654,172.7 638,145 654,117.3 686,117.3"
+           fill="none" stroke="#3A3530" stroke-width="1.4"/>
+  <circle cx="670" cy="145" r="12" fill="none" stroke="#3A3530" stroke-width="1.2"/>
+  <line x1="702" y1="145" x2="718" y2="145" stroke="#C8C0AE" stroke-width="1.1"/>
+
+  <!-- PETase arrow -->
+  <line x1="718" y1="145" x2="843" y2="145"
+        stroke="#A8A09A" stroke-width="1.1" marker-end="url(#arr)"/>
+  <text x="780" y="129" text-anchor="middle"
+        font-family="'Helvetica Neue',Helvetica,Arial,sans-serif"
+        font-size="10.5" font-weight="500" letter-spacing="1.5" fill="#5B7E6B">PETase</text>
+  <text x="780" y="141" text-anchor="middle"
+        font-family="'Helvetica Neue',Helvetica,Arial,sans-serif"
+        font-size="7.5" font-weight="300" fill="#C8C0AE">Ea = 50 kJ/mol</text>
+
+  <!-- MHET left connection -->
+  <line x1="843" y1="145" x2="858" y2="145" stroke="#C8C0AE" stroke-width="1.1"/>
+
+  <!-- MHET hexagon — flat-side, center (890,145), r=32 -->
+  <polygon points="922,145 906,172.7 874,172.7 858,145 874,117.3 906,117.3"
+           fill="none" stroke="#3A3530" stroke-width="1.4"/>
+  <circle cx="890" cy="145" r="12" fill="none" stroke="#3A3530" stroke-width="1.2"/>
+  <!-- -OH side chain (hydroxyethyl) from bottom-right vertex -->
+  <line x1="906" y1="172.7" x2="920" y2="183" stroke="#C8C0AE" stroke-width="1.1"/>
+  <text x="924" y="191"
+        font-family="'Helvetica Neue',Helvetica,Arial,sans-serif"
+        font-size="7.5" fill="#B5ADA3">OH</text>
+  <line x1="922" y1="145" x2="932" y2="145" stroke="#C8C0AE" stroke-width="1.1"/>
+
+  <!-- MHETase arrow -->
+  <line x1="932" y1="145" x2="1061" y2="145"
+        stroke="#A8A09A" stroke-width="1.1" marker-end="url(#arr)"/>
+  <text x="997" y="129" text-anchor="middle"
+        font-family="'Helvetica Neue',Helvetica,Arial,sans-serif"
+        font-size="10.5" font-weight="500" letter-spacing="1.5" fill="#5B7E6B">MHETase</text>
+  <text x="997" y="141" text-anchor="middle"
+        font-family="'Helvetica Neue',Helvetica,Arial,sans-serif"
+        font-size="7.5" font-weight="300" fill="#C8C0AE">Ea = 48 kJ/mol</text>
+  <text x="997" y="162" text-anchor="middle"
+        font-family="'Helvetica Neue',Helvetica,Arial,sans-serif"
+        font-size="7.5" font-weight="300" letter-spacing="1" fill="#C8C0AE">+ EG</text>
+
+  <!-- TPA left connection -->
+  <line x1="1061" y1="145" x2="1078" y2="145" stroke="#C8C0AE" stroke-width="1.1"/>
+
+  <!-- TPA hexagon — flat-side, center (1110,145), r=32 — sage green accent -->
+  <polygon points="1142,145 1126,172.7 1094,172.7 1078,145 1094,117.3 1126,117.3"
+           fill="none" stroke="#5B7E6B" stroke-width="1.7"/>
+  <circle cx="1110" cy="145" r="12" fill="none" stroke="#5B7E6B" stroke-width="1.4"/>
+  <line x1="1142" y1="145" x2="1163" y2="145" stroke="#5B7E6B" stroke-width="1.2"/>
+  <text x="1167" y="149"
+        font-family="'Helvetica Neue',Helvetica,Arial,sans-serif"
+        font-size="7.5" fill="#5B7E6B">COOH</text>
+
+  <!-- ── MOLECULE LABELS ── -->
+
+  <text x="670" y="200" text-anchor="middle"
+        font-family="'Helvetica Neue',Helvetica,Arial,sans-serif"
+        font-size="10" font-weight="500" letter-spacing="2" fill="#6B6259">PET</text>
+  <text x="670" y="212" text-anchor="middle"
+        font-family="'Helvetica Neue',Helvetica,Arial,sans-serif"
+        font-size="7.5" letter-spacing="1" fill="#C8C0AE">polymer</text>
+
+  <text x="890" y="200" text-anchor="middle"
+        font-family="'Helvetica Neue',Helvetica,Arial,sans-serif"
+        font-size="10" font-weight="500" letter-spacing="2" fill="#6B6259">MHET</text>
+  <text x="890" y="212" text-anchor="middle"
+        font-family="'Helvetica Neue',Helvetica,Arial,sans-serif"
+        font-size="7.5" letter-spacing="1" fill="#C8C0AE">intermediate</text>
+
+  <text x="1110" y="200" text-anchor="middle"
+        font-family="'Helvetica Neue',Helvetica,Arial,sans-serif"
+        font-size="10" font-weight="500" letter-spacing="2" fill="#5B7E6B">TPA</text>
+  <text x="1110" y="212" text-anchor="middle"
+        font-family="'Helvetica Neue',Helvetica,Arial,sans-serif"
+        font-size="7.5" letter-spacing="1" fill="#5B7E6B">product</text>
+
+  <!-- Bottom rule -->
+  <line x1="0" y1="277" x2="1200" y2="277" stroke="#D8D2C4" stroke-width="0.5"/>
+</svg>

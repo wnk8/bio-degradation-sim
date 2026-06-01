@@ -1,3 +1,5 @@
+![PET Biodegradation Simulator](banner.svg)
+
 # PET Biodegradation Simulator
 
 A fully local scientific simulator for the enzymatic degradation of PET plastic via PETase and MHETase enzymes. Models the coupled reaction pathway using Michaelis-Menten kinetics with Arrhenius temperature correction and Monte-Carlo uncertainty analysis.
