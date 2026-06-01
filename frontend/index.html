@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PET-Abbau-Simulator</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0f1117;
+      --surface: #1a1d2e;
+      --border: #2d3047;
+      --accent: #4fffb0;
+      --accent2: #7b8cde;
+      --accent3: #ff6b6b;
+      --text: #e2e8f0;
+      --muted: #8892a4;
+      --radius: 12px;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+      min-height: 100vh;
+      padding: 24px;
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 28px;
+    }
+
+    .logo {
+      width: 42px; height: 42px;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 20px;
+    }
+
+    h1 { font-size: 1.4rem; font-weight: 700; }
+    h1 span { color: var(--accent); }
+    .subtitle { font-size: 0.8rem; color: var(--muted); margin-top: 2px; }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 20px;
+    }
+
+    .panel {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+    }
+
+    .panel h2 {
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      margin-bottom: 16px;
+    }
+
+    .control-group { margin-bottom: 20px; }
+
+    label {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.85rem;
+      margin-bottom: 6px;
+    }
+
+    label .val {
+      font-weight: 600;
+      color: var(--accent);
+      font-variant-numeric: tabular-nums;
+    }
+
+    input[type=range] {
+      width: 100%;
+      appearance: none;
+      height: 4px;
+      border-radius: 2px;
+      background: var(--border);
+      outline: none;
+      cursor: pointer;
+    }
+
+    input[type=range]::-webkit-slider-thumb {
+      appearance: none;
+      width: 16px; height: 16px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 6px rgba(79,255,176,0.5);
+    }
+
+    .runs-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .runs-row label { margin-bottom: 0; font-size: 0.85rem; white-space: nowrap; }
+
+    select {
+      flex: 1;
+      background: var(--bg);
+      color: var(--text);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 6px 8px;
+      font-size: 0.85rem;
+    }
+
+    .btn {
+      width: 100%;
+      padding: 10px;
+      background: var(--accent);
+      color: #0f1117;
+      font-weight: 700;
+      font-size: 0.9rem;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: opacity 0.15s;
+    }
+
+    .btn:hover { opacity: 0.85; }
+    .btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-top: 20px;
+    }
+
+    .stat {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 10px 12px;
+    }
+
+    .stat .label { font-size: 0.72rem; color: var(--muted); margin-bottom: 4px; }
+    .stat .value { font-size: 1rem; font-weight: 700; color: var(--accent); }
+    .stat .value.blue { color: var(--accent2); }
+    .stat .value.red  { color: var(--accent3); }
+
+    .charts-col {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .chart-panel { position: relative; min-height: 280px; }
+    .chart-panel h3 {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--muted);
+      margin-bottom: 12px;
+    }
+
+    canvas { max-height: 260px; }
+
+    .spinner {
+      display: none;
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%,-50%);
+      width: 32px; height: 32px;
+      border: 3px solid var(--border);
+      border-top-color: var(--accent);
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+    }
+
+    @keyframes spin { to { transform: translate(-50%,-50%) rotate(360deg); } }
+
+    .loading canvas { opacity: 0.3; }
+    .loading .spinner { display: block; }
+
+    .ci-bar {
+      font-size: 0.75rem;
+      color: var(--muted);
+      margin-top: 6px;
+    }
+
+    footer {
+      margin-top: 24px;
+      text-align: center;
+      font-size: 0.75rem;
+      color: var(--muted);
+    }
+
+    footer a { color: var(--accent2); text-decoration: none; }
+
+    @media (max-width: 900px) {
+      .grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="logo">🧬</div>
+  <div>
+    <h1>PET-Abbau-<span>Simulator</span></h1>
+    <div class="subtitle">PETase / MHETase · Michaelis-Menten + Arrhenius · Monte-Carlo</div>
+  </div>
+</header>
+
+<div class="grid">
+  <!-- Steuerung -->
+  <div class="panel">
+    <h2>Parameter</h2>
+
+    <div class="control-group">
+      <label>Temperatur <span class="val" id="temp-val">30 °C</span></label>
+      <input type="range" id="temp" min="0" max="80" step="1" value="30" />
+    </div>
+
+    <div class="control-group">
+      <label>pH-Wert <span class="val" id="ph-val">7.0</span></label>
+      <input type="range" id="ph" min="4" max="10" step="0.1" value="7.0" />
+    </div>
+
+    <div class="control-group">
+      <label>[PET]₀ <span class="val" id="pet0-val">1.0 mM</span></label>
+      <input type="range" id="pet0" min="0.1" max="5" step="0.1" value="1.0" />
+    </div>
+
+    <div class="runs-row">
+      <label for="runs">MC-Runs</label>
+      <select id="runs">
+        <option value="100">100</option>
+        <option value="200">200</option>
+        <option value="500" selected>500</option>
+        <option value="1000">1000</option>
+      </select>
+    </div>
+
+    <button class="btn" id="run-btn">Simulation starten</button>
+
+    <div class="stats-grid" id="stats-grid">
+      <div class="stat">
+        <div class="label">Finale TPA (Mittel)</div>
+        <div class="value" id="stat-tpa">—</div>
+      </div>
+      <div class="stat">
+        <div class="label">Max. Rate</div>
+        <div class="value blue" id="stat-rate">—</div>
+      </div>
+      <div class="stat">
+        <div class="label">Halbwertszeit t½</div>
+        <div class="value red" id="stat-thalf">—</div>
+      </div>
+      <div class="stat">
+        <div class="label">MC gültige Runs</div>
+        <div class="value" id="stat-valid">—</div>
+      </div>
+    </div>
+
+    <div class="ci-bar" id="ci-bar"></div>
+  </div>
+
+  <!-- Charts -->
+  <div class="charts-col">
+    <div class="panel chart-panel" id="ode-panel">
+      <h3>ODE-Zeitverlauf: [PET], [MHET], [TPA] über 120 min</h3>
+      <canvas id="ode-chart"></canvas>
+      <div class="spinner"></div>
+    </div>
+
+    <div class="panel chart-panel" id="heatmap-panel">
+      <h3>Heatmap: Temperatur × pH → mittlere Degradationsrate (µmol/min/mg)</h3>
+      <canvas id="heatmap-chart"></canvas>
+      <div class="spinner"></div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  Literaturwerte: <a href="#">Yoshida et al. 2016 (Science)</a> &amp;
+  <a href="#">Tournier et al. 2020 (Nature)</a> · 100% lokal · 0 € Kosten
+</footer>
+
+<script src="sim.js"></script>
+</body>
+</html>
